@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://https://github.com/robertleimer/strapi-navi-plugin-mod"
+    "url": "https://github.com/robertleimer/strapi-navi-plugin-mod"
   },
   "scripts": {
     "publish:latest": "cd build && npm publish --tag latest",

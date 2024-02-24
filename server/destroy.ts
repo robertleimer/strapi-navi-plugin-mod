@@ -1,3 +1,3 @@
 export default () => {
-  // Destroy function for strapi-plugin-navigation
+  // Destroy function for strapi-navi-plugin-mod
 };

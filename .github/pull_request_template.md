@@ -1,6 +1,6 @@
 ## Ticket
 
-https://github.com/VirtusLab/strapi-plugin-navigation/issues/-<your-ticket-#>
+https://github.com/robertleimer/strapi-navi-plugin-mod/issues/-<your-ticket-#>
 
 ## Summary
 

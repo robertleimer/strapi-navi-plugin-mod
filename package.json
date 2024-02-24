@@ -1,16 +1,16 @@
 {
-  "name": "strapi-plugin-navigation",
-  "version": "2.4.0",
-  "description": "Strapi - Navigation plugin",
+  "name": "strapi-navi-plugin-mod",
+  "version": "1.0.0",
+  "description": "Strapi - Modded Navigation plugin",
   "strapi": {
-    "name": "navigation",
-    "displayName": "Navigation",
-    "description": "Create consumable navigation with a simple and straightforward visual builder",
+    "name": "simple_navigation",
+    "displayName": "Simple Navigation",
+    "description": "Create an consumable navigation list with a simple and straightforward visual builder (no url needed)",
     "kind": "plugin"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/VirtusLab/strapi-plugin-navigation"
+    "url": "https://https://github.com/robertleimer/strapi-navi-plugin-mod"
   },
   "scripts": {
     "publish:latest": "cd build && npm publish --tag latest",
@@ -64,30 +64,13 @@
     "styled-components": "^5.2.1"
   },
   "author": {
-    "name": "VirtusLab",
-    "email": "strapi@virtuslab.com",
-    "url": "https://virtuslab.com"
+    "name": "RobertLeimer",
+    "email": "robert.leimer@proton.me"
   },
   "maintainers": [
     {
-      "name": "VirtusLab // Mateusz Ziarko",
-      "email": "mziarko@virtuslab.com",
-      "url": "https://virtuslab.com"
-    },
-    {
-      "name": "VirtusLab // Maksymilian Pamuła",
-      "email": "mpamula@virtuslab.com",
-      "url": "https://virtuslab.com"
-    },
-    {
-      "name": "VirtusLab // Maciej Witkowski",
-      "email": "mwitkowski@virtuslab.com",
-      "url": "https://virtuslab.com"
-    },
-    {
-      "name": "VirtusLab // Tomasz Puch",
-      "email": "tpuch@virtuslab.com",
-      "url": "https://virtuslab.com"
+      "name": "Robert Leimer",
+      "email": "robert.leimer@proton.me"
     }
   ],
   "engines": {

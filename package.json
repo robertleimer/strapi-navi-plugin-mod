@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "Strapi - Modded Navigation plugin",
   "strapi": {
-    "name": "simple-navigation",
+    "name": "navigation",
     "displayName": "Simple Navigation",
     "description": "Create an consumable navigation list with a simple and straightforward visual builder (no url needed)",
     "kind": "plugin"

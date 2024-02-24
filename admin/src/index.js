@@ -37,7 +37,7 @@ export default {
       icon: NavigationIcon,
       intlLabel: {
         id: `${pluginId}.plugin.name`,
-        defaultMessage: 'Navigation',
+        defaultMessage: 'Simple Navigation',
       },
       Component: async () => {
         const component = await import(/* webpackChunkName: "navigation-main-app" */ './pages/App');

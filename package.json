@@ -19,7 +19,7 @@
     "test:unit:watch": "jest --watch",
     "build": "tsc",
     "build:dev": "npm run build && cp ./package.json ./build && cd ./build && yarn",
-    "clean": "rm -rf build",
+    "clean": "rmdir build",
     "develop": "nodemon --exec \"npm run build:dev\""
   },
   "types": "./types/index.d.ts",

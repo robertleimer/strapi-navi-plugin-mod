@@ -19,7 +19,7 @@ export default {
       visible: false
     },
     i18n: {
-      localized: false
+      localized: true
     }
   },
   attributes: {

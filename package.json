@@ -1,6 +1,6 @@
 {
   "name": "strapi-navigation-plugin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Strapi - Modded Navigation plugin",
   "strapi": {
     "name": "navigation",

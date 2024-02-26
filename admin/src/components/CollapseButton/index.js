@@ -4,6 +4,7 @@ import { Flex } from '@strapi/design-system/Flex';
 import { Typography } from '@strapi/design-system/Typography';
 import { Icon } from '@strapi/design-system/Icon';
 import { CarretUp, CarretDown } from '@strapi/icons';
+import { getMessage } from '../../utils';
 
 const Wrapper = styled.div`
 	border-radius: 50%;
@@ -24,7 +25,12 @@ const CollapseButton = ({ toggle, collapsed, itemsCount }) => (
 				<Icon as={CarretUp} width='7px' height='4px' />
 			}
 		</Wrapper>
-		<Typography variant="pi">{itemsCount} nested items</Typography>
+		<Typography variant="pi">{getMessage({
+                  id: "components.navigationItem.label.nestedItems",
+                  props: {
+                    count: itemsCount,
+                  },
+                })}</Typography>
 	</Flex >
 );
 

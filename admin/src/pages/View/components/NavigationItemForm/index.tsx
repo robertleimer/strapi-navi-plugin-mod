@@ -19,7 +19,7 @@ import { extractRelatedItemLabel } from '../../utils/parsers';
 import * as formDefinition from './utils/form';
 import { checkFormValidity } from '../../utils/form';
 import { getTrad, getTradId } from '../../../../translations';
-import { Audience, Effect, NavigationItemAdditionalField, NavigationItemType, ToBeFixed } from '../../../../../../types';
+import { Audience, Effect, NavigationItemAdditionalField, ToBeFixed } from '../../../../../../types';
 import { ContentTypeSearchQuery, NavigationItemFormData, NavigationItemFormProps, RawFormPayload, SanitizedFormPayload, Slugify } from './types';
 import AdditionalFieldInput from '../../../../components/AdditionalFieldInput';
 import { getMessage } from '../../../../utils';
@@ -213,22 +213,6 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
     [relatedTypeSelectValue, contentTypes],
   );
 
-  const navigationItemTypeOptions = (Object.keys(navigationItemType) as NavigationItemType[]).map((key) => {
-    const value = navigationItemType[key].toLowerCase();
-    return {
-      key,
-      value: navigationItemType[key],
-      metadatas: {
-        intlLabel: {
-          id: getTradId(`popup.item.form.type.${value}.label`),
-          defaultMessage: getTradId(`popup.item.form.type.${value}.label`),
-        },
-        hidden: false,
-        disabled: false,
-      }
-    }
-  });
-
   // TODO?: useMemo
   const relatedSelectOptions = sortBy(contentTypeEntities
     .filter((item) => {
@@ -369,18 +353,6 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
                 error={formik.errors.title}
                 onChange={({ target: { name, value } }: GenericInputOnChangeInput) => onChange({ name, value })}
                 value={formik.values.title}
-              />
-            </GridItem>
-            <GridItem key="type" col={12}>
-              <GenericInput
-                intlLabel={getTrad('popup.item.form.type.label', 'Internal link')}
-                name="type"
-                options={navigationItemTypeOptions}
-                type="select"
-                disabled={!canUpdate}
-                error={formik.errors.type}
-                onChange={({ target: { name, value } }: GenericInputOnChangeInput) => onChange({ name, value })}
-                value={formik.values.type}
               />
             </GridItem>
             {formik.values.type === navigationItemType.INTERNAL && (

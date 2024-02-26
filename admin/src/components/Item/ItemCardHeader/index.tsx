@@ -19,7 +19,6 @@ import { pencilIcon, refreshIcon, trashIcon, eyeIcon } from './icons';
 
 interface IProps {
   title: string,
-  path: string,
   icon: ToBeFixed,
   removed: boolean,
   canUpdate: boolean,
@@ -31,17 +30,13 @@ interface IProps {
 }
 
 const wrapperStyle = { zIndex: 2 };
-const pathWrapperStyle = { maxWidth: "425px" };
 
-const ItemCardHeader: React.FC<IProps> = ({ title, path, icon, removed, canUpdate, onItemRemove, onItemEdit, onItemRestore, dragRef, isSearchActive }) => (
+const ItemCardHeader: React.FC<IProps> = ({ title, icon, removed, canUpdate, onItemRemove, onItemEdit, onItemRestore, dragRef, isSearchActive }) => (
   <Wrapper>
     <Flex alignItems="center" >
       {canUpdate && (<DragButton ref={dragRef} isActive={isSearchActive} />)}
       <Typography variant="omega" fontWeight="bold">
         {title}
-      </Typography>
-      <Typography variant="omega" fontWeight="bold" textColor='neutral500' ellipsis style={pathWrapperStyle}>
-        {path}
       </Typography>
       <Flex>
         <Icon as={icon} />

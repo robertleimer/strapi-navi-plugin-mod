@@ -192,6 +192,7 @@
   "pages.settings.form.customFields.popup.options.label": "Options for select input",
   "pages.settings.form.customFields.popup.options.description": "Enabling this field will not change already exiting navigation items",
   "pages.settings.form.customFields.popup.multi.label": "Enable multiple options input",
+  "components.navigationItem.label.nestedItems": "{count} nested items",
   "components.navigationItem.action.newItem": "Add nested item",
   "components.navigationItem.action.edit": "Edit",
   "components.navigationItem.action.view": "View",

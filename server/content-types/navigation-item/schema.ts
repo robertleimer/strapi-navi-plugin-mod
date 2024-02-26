@@ -19,7 +19,7 @@ export default {
       visible: false
     },
     i18n: {
-      localized: true
+      localized: false
     }
   },
   attributes: {
@@ -29,7 +29,7 @@ export default {
       required: true,
       pluginOptions: {
         i18n: {
-          localized: true
+          localized: false
         }
       }
     },

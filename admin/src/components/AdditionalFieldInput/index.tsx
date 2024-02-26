@@ -27,7 +27,7 @@ const mediaAttribute = {
   allowedTypes: ["images"],
   pluginOptions: {
     i18n: {
-      localized: true,
+      localized: false,
     },
   },
 };

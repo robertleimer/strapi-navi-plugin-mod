@@ -7,7 +7,8 @@ import de from "./de.json";
 const trads = {
 	en,
 	fr,
-	ca
+	ca,
+	de
 };
 
 export const getTradId = (msg) => `${pluginId}.${msg}`;

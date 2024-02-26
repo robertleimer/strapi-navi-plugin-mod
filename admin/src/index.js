@@ -57,7 +57,7 @@ export default {
       .filter((locale) => Object.keys(trads).includes(locale))
       .map((locale) => {
         return {
-          data: prefixPluginTranslations(get(trads, locale, trads.en), pluginId, {}),
+          data: prefixPluginTranslations(get(trads, locale, trads.de), pluginId, {}),
           locale,
         };
     });

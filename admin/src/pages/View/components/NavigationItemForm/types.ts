@@ -38,7 +38,6 @@ export type NavigationItemFormData = {
   menuAttached?: boolean;
   order?: number;
   parent?: ToBeFixed;
-  path?: string | null;
   title?: string;
   type?: NavigationItemType;
   uiRouterKey?: string;

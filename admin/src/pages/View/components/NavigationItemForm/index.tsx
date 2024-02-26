@@ -371,7 +371,7 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
                 value={formik.values.title}
               />
             </GridItem>
-            <GridItem key="type" col={4} lg={12}>
+            <GridItem key="type" col={12}>
               <GenericInput
                 intlLabel={getTrad('popup.item.form.type.label', 'Internal link')}
                 name="type"
@@ -385,7 +385,7 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
             </GridItem>
             {formik.values.type === navigationItemType.INTERNAL && (
               <>
-                <GridItem col={7} lg={12}>
+                <GridItem col={6} lg={12}>
                   <GenericInput
                     type="select"
                     intlLabel={getTrad('popup.item.form.relatedType.label', 'Related Type')}

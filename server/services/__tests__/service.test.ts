@@ -1,7 +1,6 @@
 import { IStrapi, StrapiContext } from "strapi-typed";
 import { Navigation, ToBeFixed } from "../../../types";
 
-import setupStrapi from "../../../__mocks__/strapi";
 import { allLifecycleHooks, getPluginService, RENDER_TYPES } from "../../utils";
 import clientService from "../client";
 import adminService from "../admin";
@@ -9,9 +8,6 @@ import adminService from "../admin";
 declare var strapi: IStrapi;
 
 describe("Navigation services", () => {
-  beforeAll(async () => {
-    setupStrapi();
-  });
 
   describe("Correct config", () => {
     it("Declares Strapi instance", () => {

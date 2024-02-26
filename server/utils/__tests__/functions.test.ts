@@ -7,7 +7,6 @@ import {
   ToBeFixed,
 } from "../../../types";
 
-import setupStrapi from "../../../__mocks__/strapi";
 import {
   buildAllHookListeners,
   buildHookListener,
@@ -23,9 +22,6 @@ import { ContentType } from "../constant";
 declare var strapi: IStrapi;
 
 describe("Utilities functions", () => {
-  beforeAll(async () => {
-    setupStrapi();
-  });
 
   describe("Path rendering functions", () => {
     it("Can build nested path structure", async () => {

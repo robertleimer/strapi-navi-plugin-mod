@@ -24,12 +24,6 @@ export const schemaFactory = (isSingleSelected: boolean, additionalFields: Navig
       }),
     uiRouterKey: yup.string().required(translatedErrors.required),
     type: yup.string().required(translatedErrors.required),
-    path: yup.string()
-      .when('type', {
-        is: (val: NavigationItemType) => val !== navigationItemType.EXTERNAL || isNil(val),
-        then: yup.string().matches(/^\S+$/, "Invalid path string").required(translatedErrors.required),
-        otherwise: yup.string().notRequired(),
-      }),
     externalPath: yup.string()
       .when('type', {
         is: (val: NavigationItemType) => val === navigationItemType.EXTERNAL,

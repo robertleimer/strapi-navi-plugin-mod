@@ -1,6 +1,6 @@
 {
   "name": "simple-strapi-navigation-plugin",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Strapi - Simple Navigation plugin",
   "strapi": {
     "name": "navigation",

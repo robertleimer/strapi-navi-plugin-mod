@@ -517,41 +517,8 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
                 value={formik.values.type}
               />
             </GridItem>
-            <GridItem key="menuAttached" col={4} lg={12}>
-              <GenericInput
-                intlLabel={getTrad('popup.item.form.menuAttached.label', 'MenuAttached')}
-                name="menuAttached"
-                type="bool"
-                error={formik.errors.menuAttached}
-                onChange={({ target: { name, value } }: GenericInputOnChangeInput) => onChange({ name, value })}
-                value={formik.values.menuAttached}
-                disabled={!canUpdate || (config.cascadeMenuAttached ? !(data.isMenuAllowedLevel && data.parentAttachedToMenu) : false)}
-              />
-            </GridItem>
-            <GridItem key="path" col={12}>
-              <GenericInput
-                intlLabel={getTrad(`popup.item.form.${pathSourceName}.label`, 'Path')}
-                name={pathSourceName}
-                placeholder={getTrad(`popup.item.form.${pathSourceName}.placeholder`, 'e.g. Blog')}
-                type="text"
-                disabled={!canUpdate}
-                error={formik.errors[pathSourceName]}
-                onChange={({ target: { name, value } }: GenericInputOnChangeInput) => onChange({ name, value })}
-                value={formik.values[pathSourceName]}
-                description={generatePreviewPath()}
-              />
-            </GridItem>
             {formik.values.type === navigationItemType.INTERNAL && (
               <>
-                <GridItem key="menuAttached" col={12}>
-                  <GenericInput
-                    intlLabel={getTrad('popup.item.form.autoSync.label', 'Read fields from related')}
-                    name="autoSync"
-                    type="bool"
-                    onChange={({ target: { value } }: GenericInputOnChangeInput) => setAutoSync(value)}
-                    value={autoSync}
-                  />
-                </GridItem>
                 <GridItem col={6} lg={12}>
                   <GenericInput
                     type="select"
@@ -635,33 +602,6 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
               }
             })}
           </Grid>
-          {
-            isI18nBootstrapAvailable ? (
-              <Grid gap={5} paddingTop={5} >
-                <GridItem col={6} lg={12}>
-                  <GenericInput
-                    {...itemCopyProps}
-                    type="select"
-                    name={itemLocaleCopyField}
-                    error={get(formik.errors, itemLocaleCopyField)}
-                    onChange={onChangeLocaleCopy}
-                    options={availableLocaleOptions}
-                    value={itemLocaleCopyValue}
-                    disabled={isLoading || !canUpdate}
-                  />
-                </GridItem>
-                {canUpdate && (<GridItem col={6} lg={12} paddingTop={6}>
-                  <Button
-                    variant="tertiary"
-                    onClick={onCopyFromLocale}
-                    disabled={isLoading || !itemLocaleCopyValue}
-                  >
-                    {getMessage('popup.item.form.i18n.locale.button')}
-                  </Button>
-                </GridItem>)}
-              </Grid>
-            ) : null
-          }
         </ModalBody >
       </form>
       <NavigationItemPopupFooter handleSubmit={formik.handleSubmit} handleCancel={onCancel} submitDisabled={submitDisabled} canUpdate={canUpdate} />

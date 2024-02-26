@@ -90,10 +90,8 @@ export const defaultValues: RawFormPayload = {
   related: "",
   relatedType: "",
   audience: [],
-  menuAttached: false,
   title: "",
   externalPath: "",
-  path: "",
   additionalFields: {
     boolean: false,
     string: "",

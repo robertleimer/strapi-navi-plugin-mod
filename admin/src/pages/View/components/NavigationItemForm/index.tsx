@@ -22,15 +22,13 @@ import { getTrad, getTradId } from '../../../../translations';
 import { assertString, Audience, Effect, NavigationItemAdditionalField, NavigationItemType, ToBeFixed } from '../../../../../../types';
 import { ContentTypeSearchQuery, NavigationItemFormData, NavigationItemFormProps, RawFormPayload, SanitizedFormPayload, Slugify } from './types';
 import AdditionalFieldInput from '../../../../components/AdditionalFieldInput';
-import { getMessage, ResourceState } from '../../../../utils';
+import { getMessage } from '../../../../utils';
 import { Id } from 'strapi-typed';
 import { GenericInputOnChangeInput } from '../../utils/types';
 
 const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
   config,
-  availableLocale,
   isLoading: isPreloading,
-  inputsPrefix,
   data,
   contentTypes = [],
   contentTypeEntities = [],
@@ -44,13 +42,12 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
   usedContentTypesData,
   appendLabelPublicationStatus = appendLabelPublicationStatusFallback,
   locale,
-  readNavigationItemFromLocale,
   slugify,
   permissions = {},
 }) => {
   const [isLoading, setIsLoading] = useState(isPreloading);
   const [hasBeenInitialized, setInitializedState] = useState(false);
-  const [autoSync, setAutoSync] = useState(true);
+  const [autoSync] = useState(true);
   const [hasChanged, setChangedState] = useState(false);
   const [contentTypeSearchQuery, setContentTypeSearchQuery] = useState<ContentTypeSearchQuery>(undefined);
   const { canUpdate } = permissions;
@@ -74,22 +71,6 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
   const initialRelatedTypeSelected = get(data, 'relatedType.value');
   const relatedTypeSelectValue = formik.values.relatedType;
   const relatedSelectValue = formik.values.related;
-  const isI18nBootstrapAvailable = !!(config.i18nEnabled && availableLocale && availableLocale.length);
-  const availableLocaleOptions = useMemo(() => availableLocale.map((locale, index) => ({
-    key: `${locale}-${index}`,
-    value: locale,
-    label: locale,
-    metadatas: {
-      intlLabel: {
-        id: `i18n.locale.${locale}`,
-        defaultMessage: locale,
-      },
-      hidden: false,
-      disabled: false,
-    },
-  })), [availableLocale]);
-
-  const relatedFieldName = `${inputsPrefix}related`;
 
   if (!hasBeenInitialized && !isEmpty(data)) {
     setInitializedState(true);
@@ -115,24 +96,6 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
     value: get(item, 'id', " "),
     label: get(item, 'name', " "),
   })), [availableAudience]);
-
-  const generatePreviewPath = () => {
-    if (!isExternal) {
-      const itemPath = isEmpty(formik.values.path) || formik.values.path === '/'
-        ? getDefaultPath()
-        : formik.values.path || "";
-      
-      const value = `${data.levelPath !== '/' ? `${data.levelPath}` : ''}/${itemPath}`;
-
-      return {
-        id: getTradId('popup.item.form.type.external.description'),
-        defaultMessage: '',
-        values: { value }
-      }
-    }
-
-    return undefined;
-  };
 
   const getDefaultTitle =
     useCallback((related: string | undefined, relatedType: string | undefined, isSingleSelected: boolean) => {
@@ -317,9 +280,6 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
       })
     }), item => item.metadatas.intlLabel.id);
 
-  const isExternal = formik.values.type === navigationItemType.EXTERNAL;
-  const pathSourceName = isExternal ? 'externalPath' : 'path';
-
   const submitDisabled =
     (formik.values.type === navigationItemType.INTERNAL && !isSingleSelected && isNil(formik.values.related)) || isLoading;
 
@@ -393,79 +353,6 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
       }
     }
   }, [formik.values.relatedType, contentTypeSearchQuery]);
-
-  const resetCopyItemFormErrors = () => {
-    formik.setErrors({
-      ...formik.errors,
-      [itemLocaleCopyField]: null,
-    });
-  }
-  const itemLocaleCopyField = `${inputsPrefix}i18n.locale`;
-  const itemLocaleCopyValue = get(formik.values, itemLocaleCopyField);
-  const onCopyFromLocale = useCallback(async (event: React.BaseSyntheticEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    setIsLoading(true);
-    resetCopyItemFormErrors();
-
-    try {
-      const result = await readNavigationItemFromLocale({
-        locale: itemLocaleCopyValue,
-        structureId: data.structureId
-      });
-
-      if (result.type === ResourceState.RESOLVED) {
-        const { value: { related, ...rest } } = result;
-
-        formik.setValues((prevState) => ({
-          ...prevState,
-          ...rest,
-        }));
-
-        if (related) {
-          const relatedType = relatedTypeSelectOptions
-            .find(({ value }) => value === related.__contentType)?.value;
-
-          formik.setValues((prevState) => ({
-            ...prevState,
-            relatedType,
-            [relatedFieldName]: related.id,
-          }));
-        }
-      }
-
-      if (result.type === ResourceState.ERROR) {
-        formik.setErrors({
-          ...formik.errors,
-          [itemLocaleCopyField]: getMessage(result.errors[0]),
-        });
-      }
-    } catch (error) {
-      formik.setErrors({
-        ...formik.errors,
-        [itemLocaleCopyField]: getMessage('popup.item.form.i18n.locale.error.generic'),
-      });
-    }
-
-    setIsLoading(false);
-  }, [setIsLoading, formik.setValues, formik.setErrors]);
-
-  const onChangeLocaleCopy = useCallback(({ target: { value } }: GenericInputOnChangeInput) => {
-    resetCopyItemFormErrors();
-    onChange({ name: itemLocaleCopyField, value })
-  }, [onChange, itemLocaleCopyField]);
-
-  const itemCopyProps = useMemo(() => ({
-    intlLabel: {
-      id: getTradId('popup.item.form.i18n.locale.label'),
-      defaultMessage: 'Copy details from'
-    },
-    placeholder: {
-      id: getTradId('popup.item.form.i18n.locale.placeholder'),
-      defaultMessage: 'locale'
-    },
-  }), [getTradId]);
 
   useEffect(() => {
     const value = formik.values.relatedType;

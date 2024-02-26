@@ -19,7 +19,7 @@ import { extractRelatedItemLabel } from '../../utils/parsers';
 import * as formDefinition from './utils/form';
 import { checkFormValidity } from '../../utils/form';
 import { getTrad, getTradId } from '../../../../translations';
-import { assertString, Audience, Effect, NavigationItemAdditionalField, NavigationItemType, ToBeFixed } from '../../../../../../types';
+import { Audience, Effect, NavigationItemAdditionalField, NavigationItemType, ToBeFixed } from '../../../../../../types';
 import { ContentTypeSearchQuery, NavigationItemFormData, NavigationItemFormProps, RawFormPayload, SanitizedFormPayload, Slugify } from './types';
 import AdditionalFieldInput from '../../../../components/AdditionalFieldInput';
 import { getMessage } from '../../../../utils';
@@ -84,8 +84,6 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
         customFieldsValues: get(data, "additionalFields", [] as ToBeFixed),
         defaultCustomFieldsValues: formDefinition.defaultValues.additionalFields
       }),
-      menuAttached: get(data, "menuAttached", formDefinition.defaultValues.menuAttached),
-      path: get(data, "path", formDefinition.defaultValues.path),
       externalPath: get(data, "externalPath", formDefinition.defaultValues.externalPath),
       title: get(data, "title", formDefinition.defaultValues.title),
       updated: formDefinition.defaultValues.updated,
@@ -115,7 +113,7 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
     }, [contentTypeEntities, contentTypesNameFields, contentTypes]);
 
   const sanitizePayload = async (slugify: Slugify, payload: RawFormPayload, data: Partial<NavigationItemFormData>): Promise<SanitizedFormPayload> => {
-    const { related, relatedType, menuAttached, type, ...purePayload } = payload;
+    const { related, relatedType, type, ...purePayload } = payload;
     const relatedId = related;
     const singleRelatedItem = isSingleSelected ? first(contentTypeEntities) : undefined;
     const relatedCollectionType = relatedType;
@@ -129,8 +127,6 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
       ...purePayload,
       title,
       type,
-      menuAttached: isNil(menuAttached) ? false : menuAttached,
-      path: type !== navigationItemType.EXTERNAL ? purePayload.path || getDefaultPath() : undefined,
       externalPath: type === navigationItemType.EXTERNAL ? purePayload.externalPath : undefined,
       related: type === navigationItemType.INTERNAL ? relatedId : undefined,
       relatedType: type === navigationItemType.INTERNAL ? relatedCollectionType : undefined,
@@ -182,23 +178,6 @@ const NavigationItemForm: React.FC<NavigationItemFormProps> = ({
       setChangedState(true);
     }
   };
-
-  const getDefaultPath: () => string = useCallback(() => {
-    if (formik.values.type !== "INTERNAL") return "";
-    assertString(relatedTypeSelectValue);
-
-    const pathDefaultFields = get(config, ["pathDefaultFields", relatedTypeSelectValue], []);
-    if (isEmpty(formik.values.path) && !isEmpty(pathDefaultFields)) {
-      const selectedEntity = isSingleSelected
-        ? first(contentTypeEntities)
-        : contentTypeEntities.find(i => String(i.id) === relatedSelectValue);
-      const pathDefaultValues = pathDefaultFields
-        .map((field) => get(selectedEntity, field, ""))
-        .filter(value => !isNil(value) && String(value).match(/^\S+$/));
-      return String(first(pathDefaultValues) || "");
-    }
-    return "";
-  }, [relatedTypeSelectValue, formik, config]);
 
   const onAudienceChange = useCallback((value: string) => {
     onChange({ name: "audience", value });

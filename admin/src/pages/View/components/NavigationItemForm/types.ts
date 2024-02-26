@@ -84,6 +84,8 @@ export type NavigationItemFormProps = {
 export type ContentTypeSearchQuery = ToBeFixed;
 export type RawFormPayload = {
   type: NavigationItemType;
+  related?: string;
+  relatedType?: string;
   audience: Id[];
   title: string;
   externalPath: string | null;
@@ -94,8 +96,6 @@ export type RawFormPayload = {
 export type SanitizedFormPayload = {
   title: string;
   type: NavigationItemType;
-  menuAttached: boolean;
-  path?: string | null;
   externalPath?: string | null;
   related: Id | undefined;
   relatedType: string | undefined;
